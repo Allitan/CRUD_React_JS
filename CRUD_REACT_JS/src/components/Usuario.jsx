@@ -44,7 +44,7 @@ const Usuarios = () => {
                             <Campo idCampo="nombre" iconName="fa-solid fa-user" inputType="text" placeHolder="Nombre"  />
                             <Campo idCampo="correo" iconName="fa-solid fa-envelope" inputType="email" placeHolder="Correo Electrónico" />
                             <Campo idCampo="contrasenia" iconName="fa-solid fa-user-tag" inputType="text" placeHolder="Contraseña" />
-                            <Campo idCampo="rol" iconName="fa-solid fa-user" inputType="number" placeHolder="Rol" />
+                            <Campo idCampo="rol" iconName="fa-solid fa-user" inputType="text" placeHolder="Rol" />
                         </div>
                         <div className="modal-footer">
                             <button className="btn btn-success" ><i className="fa-solid fa-floppy-disk"/> Guardar</button>
