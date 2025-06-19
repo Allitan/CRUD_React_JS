@@ -1,8 +1,17 @@
 import Campo from "./Campo"
-//import useProveedor from "../hooks/useProveedor"
 import { useEffect } from "react"
+import useUsuario from "../hooks/useUsuario"
 
 const Usuarios = () => {
+    const { 
+        users, 
+        setUsers,
+        getUsers 
+    } = useUsuario()
+
+    useEffect(() => {
+        getUsers()
+    }, [])
 
     return(
         <div className="container-fluid">
@@ -28,7 +37,17 @@ const Usuarios = () => {
                             </tr>
                         </thead>
                         <tbody className="table-group-divider">
-                           
+                           {
+                             users.map((user, i) => (
+                                <tr key={user.id}>
+                                    <td>{i + 1}</td>
+                                    <td>{user.name}</td>
+                                    <td>{user.email}</td>
+                                    <td>{user.password}</td>
+                                    <td>{user.role}</td>
+                                </tr>
+                             ))
+                           }
                         </tbody>
                     </table>
                 </div>
