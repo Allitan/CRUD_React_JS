@@ -1,12 +1,27 @@
 import Campo from "./Campo"
 import { useEffect } from "react"
 import useUsuario from "../hooks/useUsuario"
+import { alertaWarning } from "../alertas"
 
 const Usuarios = () => {
     const { 
-        users, 
+        users,
         setUsers,
-        getUsers 
+        getUsers,
+        openModal,
+        id,
+        setId,
+        name,
+        setName,
+        email,
+        setEmail,
+        password,
+        setPassword,
+        role,
+        setRole,
+        titleModal,
+        guardarEditarUsuario,
+        eliminarUsuario, 
     } = useUsuario()
 
     useEffect(() => {
@@ -18,7 +33,7 @@ const Usuarios = () => {
             <div className="row mt-3">
                 <div className="col-md-4 offset-md-4">
                     <div className="d-grid mx-auto">
-                        <button className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalProveedor"><i className="fa-solid fa-circle-plus" /> Añadir</button>
+                        <button className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalUsuario" onClick={() => openModal(1)}><i className="fa-solid fa-circle-plus" /> Añadir</button>
                     </div>    
                 </div>
             </div>
@@ -32,7 +47,8 @@ const Usuarios = () => {
                                 <th>Nombre</th>
                                 <th>Correo</th>
                                 <th>Contraseña</th>
-                                <th>Rol</th>
+                                <th>Role</th>
+                                <th>Accion</th>
                                 
                             </tr>
                         </thead>
@@ -45,6 +61,10 @@ const Usuarios = () => {
                                     <td>{user.email}</td>
                                     <td>{user.password}</td>
                                     <td>{user.role}</td>
+                                    <td>
+                                        <button className="btn btn-warning" data-bs-toggle="modal" data-bs-target="#modalUsuario" onClick={() => openModal(2, user)}><i className="fa-solid fa-pen-to-square" /></button>
+                                        <button className="btn btn-danger" onClick={() => eliminarUsuario(user.id)}><i className="fa-solid fa-trash-can" /></button>
+                                    </td>
                                 </tr>
                              ))
                            }
@@ -53,20 +73,20 @@ const Usuarios = () => {
                 </div>
             </div>
 
-            <div id="modalProveedor" className="modal fade" aria-hidden="true" tabIndex="-1">
+            <div id="modalUsuario" className="modal fade" aria-hidden="true" tabIndex="-1">
                 <div className="modal-dialog">
                     <div className="modal-content">
                         <div className="modal-header">
-                            <label className="h5"> abc </label>
+                            <label className="h5"> {titleModal} </label>
                         </div>
                         <div className="modal-body">
-                            <Campo idCampo="nombre" iconName="fa-solid fa-user" inputType="text" placeHolder="Nombre"  />
-                            <Campo idCampo="correo" iconName="fa-solid fa-envelope" inputType="email" placeHolder="Correo Electrónico" />
-                            <Campo idCampo="contrasenia" iconName="fa-solid fa-user-tag" inputType="text" placeHolder="Contraseña" />
-                            <Campo idCampo="rol" iconName="fa-solid fa-user" inputType="text" placeHolder="Rol" />
+                            <Campo idCampo="nombre" iconName="fa-solid fa-user" inputType="text" placeHolder="Nombre" value={name} onChange={(e) => setName(e.target.value)} />
+                            <Campo idCampo="correo" iconName="fa-solid fa-envelope" inputType="email" placeHolder="Correo Electrónico" value={email} onChange={(e) => setEmail(e.target.value)} />
+                            <Campo idCampo="contrasenia" iconName="fa-solid fa-user-tag" inputType="text" placeHolder="Contraseña" value={password} onChange={(e) => setPassword(e.target.value)} />
+                            <Campo idCampo="role" iconName="fa-solid fa-user" inputType="text" placeHolder="Role" value={role} onChange={(e) => setRole(e.target.value)} />
                         </div>
                         <div className="modal-footer">
-                            <button className="btn btn-success" ><i className="fa-solid fa-floppy-disk"/> Guardar</button>
+                            <button className="btn btn-success" onClick={() => guardarEditarUsuario()} ><i className="fa-solid fa-floppy-disk"/> Guardar</button>
                             <button id="btnCerrarModal" className="btn btn-danger" data-bs-dismiss="modal"><i className="fa-solid fa-circle-xmark"/> Cerrar</button>
                         </div>
                     </div> 
